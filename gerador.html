@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gerador de Dados com API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h2>Gerar Dados Aleatórios</h2>
+
+      <label
+        >Quantidade de pessoas:
+        <input type="number" id="quantidade" value="3" min="1" max="50" />
+      </label>
+
+      <fieldset>
+        <legend>Escolha os atributos:</legend>
+        <label
+          ><input type="checkbox" class="atributo" value="email" checked />
+          E-mail</label
+        >
+        <label
+          ><input type="checkbox" class="atributo" value="phone" />
+          Telefone</label
+        >
+        <label
+          ><input type="checkbox" class="atributo" value="location" />
+          Endereço</label
+        >
+        <label
+          ><input type="checkbox" class="atributo" value="dob" /> Data de
+          Nascimento</label
+        >
+      </fieldset>
+
+      <button onclick="gerarDados()">Gerar Dados</button>
+      <button onclick="baixarTxt()">Baixar como .txt</button>
+      <button onclick="gerarSQL()">Gerar como SQL</button>
+      <button onclick="baixarSQL()">Baixar como SQL</button>
+
+      <textarea id="saida" readonly></textarea>
+    </div>
+
+<script>
+  let textoSemRotulo = "";
+  let listaPessoas = [];
+  let atributosSelecionados = [];
+
+  async function gerarDados() {
+    const qtd = document.getElementById("quantidade").value;
+    const saida = document.getElementById("saida");
+    const checkboxes = document.querySelectorAll(".atributo:checked");
+    atributosSelecionados = Array.from(checkboxes).map(cb => cb.value);
+
+    try {
+      const resp = await fetch(`https://randomuser.me/api/?results=${qtd}&nat=br`);
+      const dados = await resp.json();
+      const pessoas = dados.results;
+
+      listaPessoas = pessoas;
+      let textoComRotulo = "";
+      textoSemRotulo = "";
+
+      pessoas.forEach((pessoa, i) => {
+        textoComRotulo += `Pessoa ${i + 1}:\n`;
+        textoComRotulo += `Nome: ${pessoa.name.first} ${pessoa.name.last}\n`;
+        textoSemRotulo += `${pessoa.name.first} ${pessoa.name.last}\n`;
+
+        if (atributosSelecionados.includes("email")) {
+          textoComRotulo += `Email: ${pessoa.email}\n`;
+          textoSemRotulo += `${pessoa.email}\n`;
+        }
+
+        if (atributosSelecionados.includes("phone")) {
+          textoComRotulo += `Telefone: ${pessoa.phone}\n`;
+          textoSemRotulo += `${pessoa.phone}\n`;
+        }
+
+        if (atributosSelecionados.includes("location")) {
+          const endereco = `${pessoa.location.street.name}, ${pessoa.location.city}`;
+          textoComRotulo += `Endereço: ${endereco}\n`;
+          textoSemRotulo += `${endereco}\n`;
+        }
+
+        if (atributosSelecionados.includes("dob")) {
+          const nascimento = pessoa.dob.date.substring(0, 10);
+          textoComRotulo += `Nascimento: ${nascimento}\n`;
+          textoSemRotulo += `${nascimento}\n`;
+        }
+
+        textoComRotulo += "\n";
+        textoSemRotulo += "\n";
+      });
+
+      saida.value = textoComRotulo.trim();
+    } catch (e) {
+      saida.value = "Erro ao buscar dados.";
+      textoSemRotulo = "";
+    }
+  }
+
+  function baixarTxt() {
+    const blob = new Blob([textoSemRotulo.trim()], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "dados-simples.txt";
+    link.click();
+  }
+
+  function gerarSQL() {
+    if (!listaPessoas.length) {
+      alert("Gere os dados primeiro!");
+      return;
+    }
+
+    let sql = `CREATE TABLE pessoas (\n  nome VARCHAR(100)`;
+
+    if (atributosSelecionados.includes("email")) sql += ",\n  email VARCHAR(100)";
+    if (atributosSelecionados.includes("phone")) sql += ",\n  telefone VARCHAR(50)";
+    if (atributosSelecionados.includes("location")) sql += ",\n  endereco VARCHAR(150)";
+    if (atributosSelecionados.includes("dob")) sql += ",\n  nascimento DATE";
+
+    sql += "\n);\n\n";
+
+    listaPessoas.forEach(p => {
+      const nome = `${p.name.first} ${p.name.last}`;
+      let values = `'${nome}'`;
+
+      if (atributosSelecionados.includes("email"))
+        values += `, '${p.email}'`;
+
+      if (atributosSelecionados.includes("phone"))
+        values += `, '${p.phone}'`;
+
+      if (atributosSelecionados.includes("location")) {
+        const endereco = `${p.location.street.name}, ${p.location.city}`;
+        values += `, '${endereco}'`;
+      }
+
+      if (atributosSelecionados.includes("dob")) {
+        const nascimento = p.dob.date.substring(0, 10);
+        values += `, '${nascimento}'`;
+      }
+
+      sql += `INSERT INTO pessoas VALUES (${values});\n`;
+    });
+
+    document.getElementById("saida").value = sql;
+  }
+
+  function baixarSQL(){
+    const conteudo = document.getElementById("saida").value;
+    if(!conteudo.startWith("CREATE TABLE")){
+        alert("Por favor, gere o SQL primeiro.");
+        return;
+    }
+
+    const blob = new Blob([conteudo], {type: "text/sql"});
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "dados.sql";
+    link.click();
+  }
+</script>
+
+  </body>
+</html>
