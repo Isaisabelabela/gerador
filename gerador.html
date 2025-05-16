@@ -10,8 +10,9 @@
     <div class="container">
       <h2>Gerar Dados Aleatórios</h2>
 
-      <label
-        >Quantidade de pessoas:
+      <p class="descricao">Gere dados fictícios de pessoas com nome e outros atributos à sua escolha. Cada pessoa será separada por uma linha em branco. Você pode copiar, baixar .txt ou gerar comando SQL.</p>
+      <label>
+        Quantidade de pessoas:
         <input type="number" id="quantidade" value="3" min="1" max="50" />
       </label>
 
@@ -39,6 +40,7 @@
       <button onclick="baixarTxt()">Baixar como .txt</button>
       <button onclick="gerarSQL()">Gerar como SQL</button>
       <button onclick="baixarSQL()">Baixar como SQL</button>
+      <button onclick="copiarSQL()">Copiar SQL</button>
 
       <textarea id="saida" readonly></textarea>
     </div>
@@ -163,6 +165,20 @@
     link.download = "dados.sql";
     link.click();
   }
+
+  function copiarSQL() {
+  const conteudo = document.getElementById("saida").value;
+
+  if (!conteudo.trim().startsWith("CREATE TABLE")) {
+    alert("Por favor, gere o SQL primeiro.");
+    return;
+  }
+
+  navigator.clipboard.writeText(conteudo.trim())
+    .then(() => alert("SQL copiado para a área de transferência!"))
+    .catch(err => alert("Erro ao copiar: " + err));
+}
+
 </script>
 
   </body>
