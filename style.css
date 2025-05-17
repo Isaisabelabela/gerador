@@ -1,39 +1,38 @@
 /* style.css */
 
-/* Estilos globais */
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: #ffe6f2; /* Rosa bem claro */
-    color: #4a4a4a; /* Cinza escuro suave */
+    background-color: #ffe6f2; 
+    color: #4a4a4a; 
     line-height: 1.6;
     margin: 0;
-    padding: 20px; /* Mantivemos o padding inicial */
+    padding: 20px; 
 }
 
 .container {
-    max-width: 960px; /* Ajustado para o padrão anterior */
-    margin: 20px auto; /* Ajustado para o padrão anterior */
-    padding: 20px; /* Mantivemos o padding inicial */
-    background-color: #fff; /* Branco */
-    border-radius: 0.5rem; /* Ajustado para o padrão anterior */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Sombra suave - Ajustado para o padrão anterior */
+    max-width: 960px; 
+    margin: 20px auto; 
+    padding: 20px; 
+    background-color: #fff; 
+    border-radius: 0.5rem; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); 
 }
 
 h2 {
-    color: #ff69b4; /* Rosa vibrante */
+    color: #ff69b4; 
     text-align: center;
-    margin-top: 20px; /* Ajustado para o padrão anterior */
-    margin-bottom: 10px; /* Ajustado para o padrão anterior */
-    border-bottom: 2px solid #ffb3d9; /* Destaque rosa */
+    margin-top: 20px; 
+    margin-bottom: 10px; 
+    border-bottom: 2px solid #ffb3d9; 
     padding-bottom: 5px;
-    font-weight: 600; /* Subtítulos com um pouco de ênfase */
+    font-weight: 600; 
 }
 
 label,
 legend {
-    font-weight: 600; /* Ligeira ênfase nos rótulos */
+    font-weight: 600; 
     margin-top: 15px;
-    color: #4a4a4a; /* Cinza escuro suave */
+    color: #4a4a4a; 
 }
 
 input[type="number"],
@@ -41,17 +40,17 @@ input[type="text"] {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
-    border: 1px solid #ced4da; /* Borda cinza clara */
-    border-radius: 0.3rem; /* Ajustado para o padrão anterior */
+    border: 1px solid #ced4da; 
+    border-radius: 0.3rem; 
     font-size: 14px;
 }
 
 fieldset {
     margin-top: 20px;
     padding: 15px;
-    border: 1px solid #ced4da; /* Borda cinza clara */
-    border-radius: 0.3rem; /* Ajustado para o padrão anterior */
-    background-color: #f8f9fa; /* Cinza bem claro */
+    border: 1px solid #ced4da; 
+    border-radius: 0.3rem; 
+    background-color: #f8f9fa; 
 }
 
 .atributo {
@@ -59,21 +58,21 @@ fieldset {
 }
 
 button {
-    background-color: #ff69b4; /* Rosa vibrante */
-    color: #fff; /* Branco */
+    background-color: #ff69b4; 
+    color: #fff; 
     font-weight: 600;
     border: none;
-    border-radius: 0.3rem; /* Ajustado para o padrão anterior */
-    padding: 10px 20px; /* Ajustado para o padrão anterior */
+    border-radius: 0.3rem; 
+    padding: 10px 20px; 
     margin-top: 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.2s ease; /* Transição para hover */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave no botão */
+    transition: background-color 0.3s ease, box-shadow 0.2s ease; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 button:hover {
-    background-color: #ff1493; /* Rosa mais escuro no hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada no hover */
+    background-color: #ff1493;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
 }
 
 textarea {
@@ -81,8 +80,8 @@ textarea {
     margin-top: 20px;
     height: 200px;
     padding: 10px;
-    border: 1px solid #ced4da; /* Borda cinza clara */
-    border-radius: 0.3rem; /* Ajustado para o padrão anterior */
+    border: 1px solid #ced4da; 
+    border-radius: 0.3rem; 
     font-size: 14px;
     resize: vertical;
 }
