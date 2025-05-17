@@ -39,10 +39,9 @@ Este projeto é uma aplicação web simples que permite gerar dados fictícios d
 
 ## 📂 Estrutura do Projeto
 
-gerador-de-dados/
-├── index.html
-├── style.css
-├── script.js (se você separou)
+gerador-de-dados/  
+├── index.html  
+├── style.css  
 └── README.md
 
 
